@@ -319,7 +319,14 @@ export class WebPanelsController {
     try {
       NetUtilWrapper.newURI(url);
     } catch (error) {
-      console.log("Invalid url:", error);
+      console.log("Invalid url: " + url);
+      if (!!window?.gNotificationBox) {
+        window.gNotificationBox.appendNotification(0, {
+          label: "URL is not valid (" + url + ")",
+          priority: "critical",
+          timeout: 5000,
+        });
+      }
       return;
     }
     const faviconURL = await fetchIconURL(url);
