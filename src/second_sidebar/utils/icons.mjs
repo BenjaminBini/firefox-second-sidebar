@@ -25,17 +25,17 @@ export const FALLBACK_ICON = "chrome://global/skin/icons/info.svg";
 /**
  *
  * @param {string} url
- * @returns {string}
+ * @returns {Promise<string>}
  */
 export function fetchIconURL(url) {
-  const uri = NetUtilWrapper.newURI(url);
-  if (uri.specIgnoringRef in PREDEFINED_ICONS) {
-    return PREDEFINED_ICONS[uri.specIgnoringRef];
-  }
-
-  FaviconsWrapper.setDefaultIconURIPreferredSize(32);
-
   return new Promise((resolve) => {
+    const uri = NetUtilWrapper.newURI(url);
+    if (uri.specIgnoringRef in PREDEFINED_ICONS) {
+      resolve(PREDEFINED_ICONS[uri.specIgnoringRef]);
+      return;
+    }
+    FaviconsWrapper.setDefaultIconURIPreferredSize(32);
+
     FaviconsWrapper.getFaviconURLForPage(uri, async (faviconURI) => {
       let provider = "browser";
       let faviconURL = faviconURI?.spec;
@@ -46,6 +46,11 @@ export function fetchIconURL(url) {
           const response = await fetch(faviconURL);
           if (response.status !== 200) {
             throw Error(`Got ${response.status} from google`);
+          }
+        } else {
+          const response = await fetch(faviconURL);
+          if (response.status !== 200) {
+            throw Error(`Got ${response.status} from the favicon URL`);
           }
         }
       } catch (error) {
@@ -62,7 +67,7 @@ export function fetchIconURL(url) {
 /**
  *
  * @param {string} url
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 export async function isIconAvailable(url) {
   try {

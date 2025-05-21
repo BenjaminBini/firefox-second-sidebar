@@ -1,6 +1,6 @@
 import { Settings } from "./settings.mjs";
 
-const PREF = "zen-extra-sidebar.settings";
+const PREF = "second-sidebar.settings";
 
 export class SidebarSettings {
   /**@type {string} */

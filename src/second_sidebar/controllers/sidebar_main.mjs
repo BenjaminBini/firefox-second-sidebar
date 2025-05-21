@@ -53,7 +53,7 @@ export class SidebarMainController {
     });
 
     const sidebarContainer = new XULElement({
-      element: document.getElementById("zen-tabbox-wrapper"),
+      element: document.getElementById("browser"),
     });
     gNavToolboxWrapper.addEventListener("customizationready", () => {
       sidebarContainer.show();

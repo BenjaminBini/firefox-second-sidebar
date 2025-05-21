@@ -1,7 +1,7 @@
 import { Settings } from "./settings.mjs";
 import { WebPanelSettings } from "./web_panel_settings.mjs";
 
-const PREF = "zen-extra-sidebar.web-panels";
+const PREF = "second-sidebar.web-panels";
 
 export class WebPanelsSettings {
   /**@type {Array<WebPanelSettings} */
