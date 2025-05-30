@@ -37,7 +37,7 @@ export const SIDEBAR_BOX_CSS = /*css*/ `
     }
 
     #sb2-split-splitter {
-      display: flex !important;
+      display: flex;
       width: var(--zen-element-separation);
       border: unset;
     }

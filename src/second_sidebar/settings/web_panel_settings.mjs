@@ -1,3 +1,4 @@
+import { FALLBACK_ICON } from "../utils/icons.mjs";
 import { ScriptSecurityManagerWrapper } from "../wrappers/script_security_manager.mjs";
 
 export class WebPanelSettings {
@@ -44,7 +45,8 @@ export class WebPanelSettings {
     /**@type {string} */
     this.url = url;
     /**@type {string} */
-    this.faviconURL = faviconURL;
+    this.faviconURL = faviconURL || FALLBACK_ICON;
+    /**@type {string} */
     /**@type {boolean} */
     this.pinned = pinned ?? false;
     /**@type {string} */

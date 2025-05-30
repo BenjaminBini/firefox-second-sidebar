@@ -31,8 +31,15 @@ export class WebPanelButton extends Widget {
     this.notificationBadge = new NotificationBadge();
     this.doWhenButtonReady(() => {
       const badgeStackXUL = this.button.getBadgeStackXUL();
-      badgeStackXUL.appendChild(this.soundIcon.element);
-      badgeStackXUL.appendChild(this.notificationBadge.element);
+      if (badgeStackXUL) {
+        badgeStackXUL.appendChild(this.soundIcon.element);
+        badgeStackXUL.appendChild(this.notificationBadge.element);
+      } else {
+        console.warn(
+          "WebPanelButton: badgeStackXUL is null for button",
+          this.button,
+        );
+      }
     });
 
     this.setUserContextId(webPanelSettings.userContextId)

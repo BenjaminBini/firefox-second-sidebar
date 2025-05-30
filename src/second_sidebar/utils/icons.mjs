@@ -20,7 +20,8 @@ const PREDEFINED_ICONS = {
     "chrome://browser/skin/library.svg",
 };
 
-export const FALLBACK_ICON = "chrome://global/skin/icons/info.svg";
+export const FALLBACK_ICON =
+  "chrome://devtools/skin/images/browsers/firefox.svg";
 
 /**
  *
@@ -29,20 +30,26 @@ export const FALLBACK_ICON = "chrome://global/skin/icons/info.svg";
  */
 export function fetchIconURL(url) {
   return new Promise((resolve) => {
-    const uri = NetUtilWrapper.newURI(url);
+    let uri;
+    try {
+      uri = NetUtilWrapper.newURI(url);
+    } catch (e) {
+      console.warn(`Invalid URL passed to fetchIconURL: ${url}`, e);
+      resolve(FALLBACK_ICON);
+      return;
+    }
     if (uri.specIgnoringRef in PREDEFINED_ICONS) {
       resolve(PREDEFINED_ICONS[uri.specIgnoringRef]);
       return;
     }
-    FaviconsWrapper.setDefaultIconURIPreferredSize(32);
-
+    FaviconsWrapper.setDefaultIconURIPreferredSize(128);
     FaviconsWrapper.getFaviconURLForPage(uri, async (faviconURI) => {
       let provider = "browser";
       let faviconURL = faviconURI?.spec;
       try {
         if (!faviconURL) {
           provider = "google";
-          faviconURL = `https://www.google.com/s2/favicons?domain=${uri.host}&sz=32`;
+          faviconURL = `https://www.google.com/s2/favicons?domain=${uri.host}&sz=128`;
           const response = await fetch(faviconURL);
           if (response.status !== 200) {
             throw Error(`Got ${response.status} from google`);
@@ -53,10 +60,26 @@ export function fetchIconURL(url) {
             throw Error(`Got ${response.status} from the favicon URL`);
           }
         }
+        // Extra validation: ensure faviconURL is a valid, non-empty string and fetchable
+        if (
+          !faviconURL ||
+          typeof faviconURL !== "string" ||
+          !/^https?:|^chrome:|^resource:/.test(faviconURL)
+        ) {
+          throw Error("Favicon URL is invalid or empty");
+        }
       } catch (error) {
         console.log("Failed to fetch icon:", error);
         provider = "fallback";
-        faviconURL = "chrome://devtools/skin/images/browsers/firefox.svg";
+        faviconURL = FALLBACK_ICON;
+      }
+      // Final check: if faviconURL is still invalid, use fallback
+      if (
+        !faviconURL ||
+        typeof faviconURL !== "string" ||
+        faviconURL.trim() === ""
+      ) {
+        faviconURL = FALLBACK_ICON;
       }
       console.log(`Got favicon for ${url} from ${provider}`);
       resolve(faviconURL);

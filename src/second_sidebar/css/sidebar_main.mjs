@@ -52,6 +52,7 @@ export const SIDEBAR_MAIN_CSS = /* css */ `
 
       stack {
         background-color: transparent !important;
+        padding: 6px;
       }
     }
   }

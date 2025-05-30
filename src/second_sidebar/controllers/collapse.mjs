@@ -34,9 +34,14 @@ export class CollapseController {
 
   #onRootLeave(e, root) {
     const width = root.getBoundingClientRect().width;
-    const isTabsOnTheRightSide = document.documentElement.matches('[zen-right-side="true"]');
+    const isTabsOnTheRightSide = document.documentElement.matches(
+      '[zen-right-side="true"]',
+    );
     const mouseX = e.clientX;
-    if ((isTabsOnTheRightSide && mouseX > 0) || (!isTabsOnTheRightSide && mouseX < width)) {
+    if (
+      (isTabsOnTheRightSide && mouseX > 0) ||
+      (!isTabsOnTheRightSide && mouseX < width)
+    ) {
       return;
     }
     this.sidebarMain.setAttribute("has-hover", "true");
@@ -44,12 +49,13 @@ export class CollapseController {
       clearTimeout(this.rootHasHoverTimeout);
     }
     this.rootHasHoverTimeout = setTimeout(() => {
-        this.sidebarMain.removeAttribute("has-hover");
-        clearTimeout(this.rootHasHoverTimeout);
+      this.sidebarMain.removeAttribute("has-hover");
+      clearTimeout(this.rootHasHoverTimeout);
     }, 1000);
   }
 
   #setupListeners() {
+    /* 
     const window = new WindowWrapper();
     const root = new XULElement({ element: window.document.documentElement });
 
@@ -81,7 +87,7 @@ export class CollapseController {
         this.collapse(this.sidebarController.hideSidebarAnimated);
         this.sidebarCollapseButton.setOpen(false);
       }
-    });
+    }); */
   }
 
   /**
