@@ -22,8 +22,8 @@ export class SidebarController {
     this.sidebarBox = SidebarElements.sidebarBox;
     this.sidebar = SidebarElements.sidebar;
     this.sidebarToolbar = SidebarElements.sidebarToolbar;
-    this.sidebarSplitterPinned = SidebarElements.sidebarSplitterPinned;
-    this.sidebarSplitterUnpinned = SidebarElements.sidebarSplitterUnpinned;
+    this.sidebarSplitterSplit = SidebarElements.sidebarSplitterSplit;
+    this.sidebarSplitterFloating = SidebarElements.sidebarSplitterFloating;
     this.sidebarBoxFiller = SidebarElements.sidebarBoxFiller;
     this.webPanelPopupEdit = SidebarElements.webPanelPopupEdit;
     this.sidebarMainPopupSettings = SidebarElements.sidebarMainPopupSettings;
@@ -52,13 +52,13 @@ export class SidebarController {
         isLeftMouseButton(event) &&
         !this.webPanelsBrowser.activeWebPanelContains(target) &&
         !this.sidebar.contains(target) &&
-        !this.sidebarSplitterUnpinned.contains(target) &&
+        !this.sidebarSplitterFloating.contains(target) &&
         !this.webPanelPopupEdit.contains(target) &&
         !this.sidebarMainPopupSettings.contains(target) &&
         !this.sidebarMainMenuPopup.contains(target) &&
         !this.webPanelMenuPopup.contains(target) &&
-        !this.sidebarSplitterPinned.contains(target) &&
-        !this.sidebarSplitterUnpinned.contains(target)
+        !this.sidebarSplitterSplit.contains(target) &&
+        !this.sidebarSplitterFloating.contains(target)
       ) {
         this.close();
       }
@@ -186,7 +186,7 @@ export class SidebarController {
    * @param {string} title
    * @param {boolean} hideToolbar
    */
-  open({pinned, type, width, canGoBack, canGoForward, title, hideToolbar}) {
+  open({ pinned, type, width, canGoBack, canGoForward, title, hideToolbar }) {
     this.sidebarBox.show();
     this.setWidth(width);
     this.setToolbarBackButtonDisabled(!canGoBack);
@@ -200,8 +200,8 @@ export class SidebarController {
 
   close() {
     this.sidebarBox.hide();
-    this.sidebarSplitterPinned.hide();
-    this.sidebarSplitterUnpinned.hide();
+    this.sidebarSplitterSplit.hide();
+    this.sidebarSplitterFloating.hide();
     this.sidebarBoxFiller.hide();
     SidebarControllers.webPanelsController.close();
   }
@@ -216,8 +216,8 @@ export class SidebarController {
 
   pin() {
     this.sidebar.pin();
-    this.sidebarSplitterPinned.show();
-    this.sidebarSplitterUnpinned.hide();
+    this.sidebarSplitterSplit.show();
+    this.sidebarSplitterFloating.hide();
     this.sidebarBoxFiller.hide();
     this.sidebarToolbar.changePinButton(true);
     document.removeEventListener("click", this.onClickOutsideWhileUnpinned);
@@ -225,8 +225,8 @@ export class SidebarController {
 
   unpin() {
     this.sidebar.unpin();
-    this.sidebarSplitterPinned.hide();
-    this.sidebarSplitterUnpinned.show();
+    this.sidebarSplitterSplit.hide();
+    this.sidebarSplitterFloating.show();
     this.sidebarBoxFiller.show();
     this.sidebarToolbar.changePinButton(false);
     document.addEventListener("click", this.onClickOutsideWhileUnpinned);

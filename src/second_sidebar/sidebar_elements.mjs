@@ -7,8 +7,8 @@ import { SidebarCollapseButton } from "./xul/sidebar_collapse_button.mjs";
 import { SidebarMain } from "./xul/sidebar_main.mjs";
 import { SidebarMainMenuPopup } from "./xul/sidebar_main_menupopup.mjs";
 import { SidebarMainPopupSettings } from "./xul/sidebar_main_popup_settings.mjs";
-import { SidebarSplitterPinned } from "./xul/sidebar_splitter_pinned.mjs";
-import { SidebarSplitterUnpinned } from "./xul/sidebar_splitter_unpinned.mjs";
+import { SidebarSplitterSplit } from "./xul/sidebar_splitter_split.mjs";
+import { SidebarSplitterFloating } from "./xul/sidebar_splitter_floating.mjs";
 import { SidebarToolbar } from "./xul/sidebar_toolbar.mjs";
 import { WebPanelMenuPopup } from "./xul/web_panel_menupopup.mjs";
 import { WebPanelNewButton } from "./xul/web_panel_new_button.mjs";
@@ -42,8 +42,8 @@ export class SidebarElements {
     this.sidebarMain = new SidebarMain();
     this.sidebarBox = new SidebarBox();
     this.sidebarBoxFiller = new SidebarBoxFiller();
-    this.sidebarSplitterPinned = new SidebarSplitterPinned();
-    this.sidebarSplitterUnpinned = new SidebarSplitterUnpinned();
+    this.sidebarSplitterSplit = new SidebarSplitterSplit();
+    this.sidebarSplitterFloating = new SidebarSplitterFloating();
     this.sidebar = new Sidebar();
     this.sidebarToolbar = new SidebarToolbar();
     this.webPanels = new WebPanels();
@@ -54,10 +54,10 @@ export class SidebarElements {
       element: document.getElementById("browser"),
     });
     sidebarContainer.appendChildren(
-      this.sidebarSplitterPinned,
+      this.sidebarSplitterSplit,
       this.sidebarBox.appendChildren(
         this.sidebarBoxFiller,
-        this.sidebarSplitterUnpinned,
+        this.sidebarSplitterFloating,
         this.sidebar.appendChildren(this.sidebarToolbar, this.webPanels),
       ),
       this.sidebarMain,

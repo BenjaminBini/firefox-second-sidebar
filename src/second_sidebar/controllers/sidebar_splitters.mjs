@@ -5,8 +5,8 @@ import { SidebarElements } from "../sidebar_elements.mjs";
 
 export class SidebarSplittersController {
   constructor() {
-    this.sidebarSplitterUnpinned = SidebarElements.sidebarSplitterUnpinned;
-    this.sidebarSplitterPinned = SidebarElements.sidebarSplitterPinned;
+    this.sidebarSplitterFloating = SidebarElements.sidebarSplitterFloating;
+    this.sidebarSplitterSplit = SidebarElements.sidebarSplitterSplit;
 
     this.#setupListeners();
   }
@@ -22,10 +22,10 @@ export class SidebarSplittersController {
       });
       SidebarControllers.webPanelsController.saveSettings();
     };
-    this.sidebarSplitterUnpinned.listenWidthChange(() =>
+    this.sidebarSplitterFloating.listenWidthChange(() =>
       changeWidth(SidebarControllers.sidebarController.getSidebarWidth()),
     );
-    this.sidebarSplitterPinned.listenWidthChange(() =>
+    this.sidebarSplitterSplit.listenWidthChange(() =>
       changeWidth(SidebarControllers.sidebarController.getSidebarBoxWidth()),
     );
   }
