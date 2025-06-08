@@ -143,8 +143,8 @@ export class SidebarToolbar extends Toolbar {
     this.pinButton
       .setIcon(
         pinned
-          ? await useAvailableIcon(ICONS.PINNED, ICONS.PINNED_ALT)
-          : await useAvailableIcon(ICONS.UNPINNED, ICONS.UNPINNED_ALT),
+          ? await useAvailableIcon(ICONS.UNPINNED, ICONS.UNPINNED_ALT)
+          : await useAvailableIcon(ICONS.PINNED, ICONS.PINNED_ALT),
       )
       .setTooltipText(pinned ? "Unpin" : "Pin");
     return this;
