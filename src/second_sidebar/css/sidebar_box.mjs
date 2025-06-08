@@ -27,7 +27,7 @@ export const SIDEBAR_BOX_CSS = /*css*/ `
     }
   }
 
-  #browser:has(#sb2[type="split"]) {
+  #browser:has(#sb2[mode="split"]) {
     #sb2-box-filler {
       display: none;
     }
@@ -43,7 +43,7 @@ export const SIDEBAR_BOX_CSS = /*css*/ `
     }
   }
 
-  #browser:has(#sb2[type="floating"]) {
+  #browser:has(#sb2[mode="floating"]) {
     #sb2-box {
       position: absolute;
       background-color: transparent;
@@ -66,7 +66,7 @@ export const SIDEBAR_BOX_CSS = /*css*/ `
     }
   }
 
-  :root${sidebarRight} #browser:has(#sb2[type="split"]) {
+  :root${sidebarRight} #browser:has(#sb2[mode="split"]) {
     #sb2-box {
       order: 16 !important;
       padding-inline-start: var(--space-small);
@@ -80,7 +80,7 @@ export const SIDEBAR_BOX_CSS = /*css*/ `
     }
   }
 
-  :root${sidebarLeft} #browser:has(#sb2[type="split"]) {
+  :root${sidebarLeft} #browser:has(#sb2[mode="split"]) {
     #sb2-box {
       order: -2 !important;
       padding-inline-start: 1px;
@@ -94,7 +94,7 @@ export const SIDEBAR_BOX_CSS = /*css*/ `
     }
   }
 
-  :root${sidebarRight} #browser:has(#sb2[type="floating"]) {
+  :root${sidebarRight} #browser:has(#sb2[mode="floating"]) {
     #sb2-box-filler {
       order: 0;
     }
@@ -115,7 +115,7 @@ export const SIDEBAR_BOX_CSS = /*css*/ `
     }
   }
 
-  :root${sidebarLeft} #browser:has(#sb2[type="floating"]) {
+  :root${sidebarLeft} #browser:has(#sb2[mode="floating"]) {
     #sb2-box-filler {
       order: 2;
     }

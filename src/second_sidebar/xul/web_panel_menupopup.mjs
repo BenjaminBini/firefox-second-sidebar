@@ -16,6 +16,7 @@ export class WebPanelMenuPopup extends MenuPopup {
     this.unloadItem = new MenuItem().setLabel("Unload web panel");
     this.muteItem = new MenuItem();
     this.pinItem = new MenuItem();
+    this.toggleModeItem = new MenuItem();
     this.editItem = new MenuItem().setLabel("Edit web panel");
     this.deleteItem = new MenuItem().setLabel("Delete web panel");
     this.customizeItem = new MenuItem().setLabel("Customize Toolbar...");
@@ -40,6 +41,12 @@ export class WebPanelMenuPopup extends MenuPopup {
       this.pinItem.setLabel(
         `${this.webPanelController.isPinned() ? "Unpin" : "Pin"} web panel`,
       );
+      // toggle mode (split/floating)
+      const currentType = this.webPanelController.getType();
+      const isFloating = currentType === "floating";
+      this.toggleModeItem.setLabel(
+        `Switch to ${isFloating ? "split" : "floating"} mode`,
+      );
     });
   }
 
@@ -48,6 +55,7 @@ export class WebPanelMenuPopup extends MenuPopup {
       this.unloadItem,
       this.muteItem,
       this.pinItem,
+      this.toggleModeItem,
       new MenuSeparator(),
       this.editItem,
       this.deleteItem,
@@ -82,6 +90,16 @@ export class WebPanelMenuPopup extends MenuPopup {
    */
   listenPinItemClick(callback) {
     this.pinItem.addEventListener("command", () => {
+      callback(this.webPanelController);
+    });
+  }
+
+  /**
+   *
+   * @param {function(WebPanelController):void} callback
+   */
+  listenToggleModeItemClick(callback) {
+    this.toggleModeItem.addEventListener("command", () => {
       callback(this.webPanelController);
     });
   }

@@ -44,6 +44,16 @@ export class WebPanelsController {
       sendEvents(WebPanelEvents.SAVE_WEB_PANELS);
     });
 
+    this.webPanelMenuPopup.listenToggleModeItemClick((webPanelController) => {
+      const currentMode = webPanelController.getMode();
+      const newMode = currentMode === "floating" ? "split" : "floating";
+      sendEvents(WebPanelEvents.EDIT_WEB_PANEL_MODE, {
+        uuid: webPanelController.getUUID(),
+        mode: newMode,
+      });
+      sendEvents(WebPanelEvents.SAVE_WEB_PANELS);
+    });
+
     this.webPanelMenuPopup.listenEditItemClick((webPanelController) => {
       SidebarControllers.webPanelEditController.openPopup(webPanelController);
     });
@@ -122,14 +132,13 @@ export class WebPanelsController {
       }
     });
 
-    listenEvent(WebPanelEvents.EDIT_WEB_PANEL_TYPE, (event) => {
+    listenEvent(WebPanelEvents.EDIT_WEB_PANEL_MODE, (event) => {
       const uuid = event.detail.uuid;
-      const type = event.detail.type;
-
+      const mode = event.detail.mode;
       const webPanelController = this.get(uuid);
-      webPanelController.setType(type);
+      webPanelController.setMode(mode);
       if (webPanelController.isActive()) {
-        SidebarControllers.sidebarController.setType(type);
+        SidebarControllers.sidebarController.setMode(mode);
       }
     });
 

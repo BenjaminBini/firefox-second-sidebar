@@ -9,7 +9,7 @@ export class WebPanelSettings {
    * @param {string} faviconURL
    * @param {object?} params
    * @param {boolean?} params.pinned
-   * @param {string?} params.type
+   * @param {string?} params.mode
    * @param {string?} params.width
    * @param {boolean?} params.mobile
    * @param {number?} params.zoom
@@ -27,7 +27,7 @@ export class WebPanelSettings {
     faviconURL,
     {
       pinned,
-      type,
+      mode,
       width,
       mobile,
       zoom,
@@ -50,7 +50,7 @@ export class WebPanelSettings {
     /**@type {boolean} */
     this.pinned = pinned ?? false;
     /**@type {string} */
-    this.type = type ?? "floating";
+    this.mode = mode ?? "floating";
     /**@type {string} */
     this.width = width ?? "400";
     /**@type {boolean} */
@@ -84,7 +84,7 @@ export class WebPanelSettings {
       url: this.url,
       faviconURL: this.faviconURL,
       pinned: this.pinned,
-      type: this.type,
+      mode: this.mode,
       width: this.width,
       mobile: this.mobile,
       zoom: this.zoom,
