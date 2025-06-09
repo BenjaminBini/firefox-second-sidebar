@@ -82,7 +82,7 @@ export const SIDEBAR_CSS = /*css*/ `
     }
   }
   
-  #sb2[mode="split"] {
+  #sb2[type="split"] {
     width: 100% !important;
   }
 `;

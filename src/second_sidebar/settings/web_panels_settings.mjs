@@ -35,8 +35,7 @@ export class WebPanelsSettings {
             webPanelPref.faviconURL,
             {
               pinned: webPanelPref.pinned,
-              // 'type' is used for backward compatibility with older settings where 'mode' was previously called 'type'.
-              mode: webPanelPref.mode ?? webPanelPref.type,
+              type: webPanelPref.type,
               width: webPanelPref.width,
               mobile: webPanelPref.mobile,
               zoom: webPanelPref.zoom,

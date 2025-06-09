@@ -51,15 +51,15 @@ export class Sidebar extends VBox {
    *
    * @returns {Sidebar}
    */
-  setMode(mode) {
-    return this.setAttribute("mode", mode);
+  setType(type) {
+    return this.setAttribute("type", type);
   }
 
   /**
    *
    * @returns {string}
    */
-  getMode() {
-    return this.getAttribute("mode");
+  getType() {
+    return this.getAttribute("type");
   }
 }

@@ -179,14 +179,14 @@ export class SidebarController {
   /**
    *
    * @param {boolean} pinned
-   * @param {string} mode
+   * @param {string} type
    * @param {number} width
    * @param {boolean} canGoBack
    * @param {boolean} canGoForward
    * @param {string} title
    * @param {boolean} hideToolbar
    */
-  open({ pinned, mode, width, canGoBack, canGoForward, title, hideToolbar }) {
+  open({ pinned, type, width, canGoBack, canGoForward, title, hideToolbar }) {
     this.sidebarBox.show();
     this.setWidth(width);
     this.setToolbarBackButtonDisabled(!canGoBack);
@@ -194,7 +194,7 @@ export class SidebarController {
     this.setToolbarTitle(title);
     this.setHideToolbar(hideToolbar);
     this.updateAbsolutePosition();
-    this.setMode(mode);
+    this.setType(type);
     pinned ? this.pin() : this.unpin();
   }
 
@@ -232,8 +232,8 @@ export class SidebarController {
     document.addEventListener("click", this.onClickOutsideWhileUnpinned);
   }
 
-  setMode(mode) {
-    this.sidebar.setMode(mode);
+  setType(type) {
+    this.sidebar.setType(type);
   }
 
   /**

@@ -45,11 +45,12 @@ export class WebPanelsController {
     });
 
     this.webPanelMenuPopup.listenToggleModeItemClick((webPanelController) => {
-      const currentMode = webPanelController.getMode();
-      const newMode = currentMode === "floating" ? "split" : "floating";
-      sendEvents(WebPanelEvents.EDIT_WEB_PANEL_MODE, {
+      const currentType = webPanelController.getType();
+      const newType = currentType === "floating" ? "split" : "floating";
+
+      sendEvents(WebPanelEvents.EDIT_WEB_PANEL_TYPE, {
         uuid: webPanelController.getUUID(),
-        mode: newMode,
+        type: newType,
       });
       sendEvents(WebPanelEvents.SAVE_WEB_PANELS);
     });
@@ -132,13 +133,14 @@ export class WebPanelsController {
       }
     });
 
-    listenEvent(WebPanelEvents.EDIT_WEB_PANEL_MODE, (event) => {
+    listenEvent(WebPanelEvents.EDIT_WEB_PANEL_TYPE, (event) => {
       const uuid = event.detail.uuid;
-      const mode = event.detail.mode;
+      const type = event.detail.type;
+
       const webPanelController = this.get(uuid);
-      webPanelController.setMode(mode);
+      webPanelController.setType(type);
       if (webPanelController.isActive()) {
-        SidebarControllers.sidebarController.setMode(mode);
+        SidebarControllers.sidebarController.setType(type);
       }
     });
 

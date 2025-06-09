@@ -56,7 +56,7 @@ export class WebPanelPopupEdit extends Panel {
       "Request Favicon",
     );
     this.pinnedToggle = new Toggle();
-    this.modeMenuList = this.#createModeMenuList();
+    this.typeMenuList = this.#createTypeMenuList();
     this.containerMenuList = new MenuList({ id: "sb2-container-menu-list" });
     this.mobileToggle = new Toggle();
     this.loadOnStartupToggle = new Toggle();
@@ -98,11 +98,11 @@ export class WebPanelPopupEdit extends Panel {
    *
    * @returns {MenuList}
    */
-  #createModeMenuList() {
-    const modeMenuList = new MenuList();
-    modeMenuList.appendItem("Split", "split");
-    modeMenuList.appendItem("Floating", "floating");
-    return modeMenuList;
+  #createTypeMenuList() {
+    const typeMenuList = new MenuList();
+    typeMenuList.appendItem("Split", "split");
+    typeMenuList.appendItem("Floating", "floating");
+    return typeMenuList;
   }
 
   /**
@@ -139,7 +139,7 @@ export class WebPanelPopupEdit extends Panel {
             createPopupRow(this.faviconURLInput, this.faviconResetButton),
             new ToolbarSeparator(),
             createPopupGroup("Pin", this.pinnedToggle),
-            createPopupGroup("Web panel mode", this.modeMenuList),
+            createPopupGroup("Web panel type", this.typeMenuList),
             createPopupGroup("Mobile View", this.mobileToggle),
             createPopupGroup(
               "Load into memory at startup",
@@ -181,7 +181,7 @@ export class WebPanelPopupEdit extends Panel {
    * @param {function(string, string, number):void} callbacks.faviconURL
    * @param {function(string, boolean):void} callbacks.mobile
    * @param {function(string, boolean):void} callbacks.pinned
-   * @param {function(string, string):void} callbacks.mode
+   * @param {function(string, string):void} callbacks.type
    * @param {function(string, string):void} callbacks.userContextId
    * @param {function(string, boolean):void} callbacks.loadOnStartup
    * @param {function(string, boolean):void} callbacks.unloadOnClose
@@ -197,7 +197,7 @@ export class WebPanelPopupEdit extends Panel {
     url,
     faviconURL,
     pinned,
-    mode,
+    type,
     userContextId,
     mobile,
     loadOnStartup,
@@ -214,7 +214,7 @@ export class WebPanelPopupEdit extends Panel {
     this.onFaviconUrlChange = faviconURL;
     this.onMobileChange = mobile;
     this.onPinnedChange = pinned;
-    this.onModeChange = mode;
+    this.onTypeChange = type;
     this.onUserContextIdChange = userContextId;
     this.onLoadOnStartupChange = loadOnStartup;
     this.onUnloadOnCloseChange = unloadOnClose;
@@ -235,8 +235,8 @@ export class WebPanelPopupEdit extends Panel {
     this.pinnedToggle.addEventListener("toggle", () => {
       pinned(this.settings.uuid, this.pinnedToggle.getPressed());
     });
-    this.modeMenuList.addEventListener("command", () => {
-      mode(this.settings.uuid, this.modeMenuList.getValue());
+    this.typeMenuList.addEventListener("command", () => {
+      type(this.settings.uuid, this.typeMenuList.getValue());
     });
     this.containerMenuList.addEventListener("command", () => {
       userContextId(this.settings.uuid, this.containerMenuList.getValue());
@@ -337,7 +337,7 @@ export class WebPanelPopupEdit extends Panel {
     this.urlInput.setValue(settings.url);
     this.faviconURLInput.setValue(settings.faviconURL);
     this.pinnedToggle.setPressed(settings.pinned);
-    this.modeMenuList.setValue(settings.mode);
+    this.typeMenuList.setValue(settings.type);
 
     fillContainerMenuList(this.containerMenuList);
     this.containerMenuList.setValue(settings.userContextId);
@@ -389,8 +389,8 @@ export class WebPanelPopupEdit extends Panel {
     if (this.pinnedToggle.getPressed() !== this.settings.pinned) {
       this.onPinnedChange(this.settings.uuid, this.settings.pinned);
     }
-    if (this.modeMenuList.getValue() !== this.settings.mode) {
-      this.onModeChange(this.settings.uuid, this.settings.mode);
+    if (this.typeMenuList.getValue() !== this.settings.type) {
+      this.onTypeChange(this.settings.uuid, this.settings.type);
     }
     if (
       String(this.containerMenuList.getValue()) !==

@@ -445,12 +445,12 @@ export class WebPanelController {
    *
    * @returns {string}
    */
-  getMode() {
-    return this.#settings.mode;
+  getType() {
+    return this.#settings.type;
   }
 
-  setMode(mode) {
-    this.#settings.mode = mode;
+  setType(type) {
+    this.#settings.type = type;
   }
 
   /**
