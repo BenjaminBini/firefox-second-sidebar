@@ -103,6 +103,20 @@ export class SidebarController {
       sendEvents(WebPanelEvents.SAVE_WEB_PANELS);
     });
 
+    this.sidebarToolbar.listenModeToggleButtonClick(async () => {
+      const webPanelController =
+        SidebarControllers.webPanelsController.getActive();
+      if (!webPanelController) return;
+      const currentType = webPanelController.getType();
+      const newType = currentType === "floating" ? "split" : "floating";
+      sendEvents(WebPanelEvents.EDIT_WEB_PANEL_TYPE, {
+        uuid: webPanelController.getUUID(),
+        type: newType,
+      });
+      sendEvents(WebPanelEvents.SAVE_WEB_PANELS);
+      await this.sidebarToolbar.changeModeToggleButton(newType === "floating");
+    });
+
     this.sidebarToolbar.listenCloseButtonClick(() => {
       const webPanelController =
         SidebarControllers.webPanelsController.getActive();
@@ -196,6 +210,7 @@ export class SidebarController {
     this.updateAbsolutePosition();
     this.setType(type);
     pinned ? this.pin() : this.unpin();
+    this.sidebarToolbar.changeModeToggleButton(type === "floating");
   }
 
   close() {

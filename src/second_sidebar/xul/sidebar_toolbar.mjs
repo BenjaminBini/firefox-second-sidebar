@@ -17,6 +17,8 @@ const ICONS = {
   UNPINNED: "chrome://newtab/content/data/content/assets/glyph-unpin-16.svg",
   UNPINNED_ALT:
     "chrome://newtab/content/data/content/assets/glyph-unpin-16.svg",
+  MODE_SPLIT: "chrome://browser/skin/sidebars-right.svg",
+  MODE_FLOATING: "chrome://browser/skin/tabs.svg",
   CLOSE: "chrome://global/skin/icons/close.svg",
 };
 
@@ -38,6 +40,7 @@ export class SidebarToolbar extends Toolbar {
     // Sidebar buttons
     this.moreButton = this.#createMenuButton("More", ICONS.MORE);
     this.pinButton = this.#createButton();
+    this.modeToggleButton = this.#createButton();
     this.closeButton = this.#createButton("Unload", ICONS.CLOSE);
     this.sidebarButtons = this.#createSidebarButtons();
   }
@@ -103,6 +106,7 @@ export class SidebarToolbar extends Toolbar {
     const toolbarButtons = new HBox({ id: "sb2-toolbar-sidebar-buttons" })
       .appendChild(this.moreButton)
       .appendChild(this.pinButton)
+      .appendChild(this.modeToggleButton)
       .appendChild(this.closeButton);
 
     this.appendChild(toolbarButtons);
@@ -152,6 +156,24 @@ export class SidebarToolbar extends Toolbar {
 
   /**
    *
+   * @param {boolean} isFloating
+   * @returns {SidebarToolbar}
+   */
+  async changeModeToggleButton(isFloating) {
+    this.modeToggleButton
+      .setIcon(
+        isFloating
+          ? await useAvailableIcon(ICONS.MODE_SPLIT, ICONS.MODE_SPLIT)
+          : await useAvailableIcon(ICONS.MODE_FLOATING, ICONS.MODE_FLOATING),
+      )
+      .setTooltipText(
+        isFloating ? "Switch to split mode" : "Switch to floating mode",
+      );
+    return this;
+  }
+
+  /**
+   *
    * @param {function(MouseEvent):void} callback
    * @returns {SidebarToolbar}
    */
@@ -193,6 +215,15 @@ export class SidebarToolbar extends Toolbar {
    */
   listenPinButtonClick(callback) {
     return this.#addButtonClickListener(this.pinButton, callback);
+  }
+
+  /**
+   *
+   * @param {function(MouseEvent):void} callback
+   * @returns {SidebarToolbar}
+   */
+  listenModeToggleButtonClick(callback) {
+    return this.#addButtonClickListener(this.modeToggleButton, callback);
   }
 
   /**
