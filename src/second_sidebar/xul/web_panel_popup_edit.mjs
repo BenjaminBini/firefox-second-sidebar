@@ -261,12 +261,12 @@ export class WebPanelPopupEdit extends Panel {
             ),
           ]),
           createPopupSet("Position and size", [
-            createPopupGroup("Always on top", this.alwaysOnTopToggle),
-            new ToolbarSeparator(),
             createPopupGroup("Mode", this.pinnedMenuList),
             new Div({
               id: "sb2-popup-floating-items",
             }).appendChildren(
+              new ToolbarSeparator(),
+              createPopupGroup("Always on top", this.alwaysOnTopToggle),
               new ToolbarSeparator(),
               createPopupGroup("Position anchor", this.floatingAnchorMenuList),
               new ToolbarSeparator(),
